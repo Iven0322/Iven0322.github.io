@@ -86,7 +86,7 @@ kramdown:
 
 # Featured Tags
 featured-tags: true                     # 是否使用首页标签
-featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
+featured-condition-size: 0              # 相同标签数量大于这个数，才会出现在首页
 
 
 
@@ -101,5 +101,5 @@ Search Me: [
     {
         title: "飞书",
         href: "https://www.feishu.cn/invitation/page/add_contact/?token=677i294c-60b9-42a4-bb18-8fdc8bef36df"
-    },
+    }
 ]
