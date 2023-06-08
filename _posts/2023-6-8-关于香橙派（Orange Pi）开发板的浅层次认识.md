@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      关于香橙派（Orange Pi）开发板的浅层次认识
-subtitle:   函数式编程框架 ReactiveCocoa 进阶
+subtitle:   浅谈嵌入式系统开发板
 date:       2023-06-08
 author:     Iven Xie
 header-img: img/post-2-header.jpg
