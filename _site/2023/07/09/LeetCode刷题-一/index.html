@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Just go ahead and don't look back">
+    <meta name="keywords"  content="谢伊凡, Blog,Memories,iOS, Apple, iPhone">
+    <meta name="theme-color" content="#000000">
+    
+    <title>LeetCode 刷题（一） - 谢伊凡|Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2023/07/09/LeetCode%E5%88%B7%E9%A2%98-%E4%B8%80/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Iven‘s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/blackheader.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+  header.intro-header{
+  position: relative;
+   background-image: url('/img/blackheader.jpg')
+  }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+                        
+                        <a class="tag" href="/tags/#双指针" title="双指针">双指针</a>
+                        
+                        <a class="tag" href="/tags/#代码练习" title="代码练习">代码练习</a>
+                        
+                        <a class="tag" href="/tags/#学习记录" title="学习记录">学习记录</a>
+                        
+                    </div>
+                    <h1>LeetCode 刷题（一）</h1>
+                    
+                    
+                    <h2 class="subheading">三数组求和问题</h2>
+                    
+                    <span class="meta">Posted by Iven on July 9, 2023</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>#前言
+这个暑假在家里闲着也是闲着，准备在LeetCode上每天打卡一道算法题目，学学新的知识，也方便提升一下自己。
+今天做的是第15题。
+##题目详情
+给你一个整数数组 <code class="language-plaintext highlighter-rouge">nums</code> ，判断是否存在三元组<code class="language-plaintext highlighter-rouge"> [nums[i], nums[j], nums[k]] </code>满足 <code class="language-plaintext highlighter-rouge">i != j</code>、<code class="language-plaintext highlighter-rouge">i != k </code>且 <code class="language-plaintext highlighter-rouge">j != k</code> ，同时还满足<code class="language-plaintext highlighter-rouge"> nums[i] + nums[j] + nums[k] == 0 </code>。请</p>
+
+<p>你返回所有和为 <code class="language-plaintext highlighter-rouge">0</code> 且不重复的三元组。</p>
+
+<p>注意：答案中不可以包含重复的三元组。</p>
+
+<p>##示例
+输入：<code class="language-plaintext highlighter-rouge">nums = [-1,0,1,2,-1,-4]</code></p>
+
+<p>输出：<code class="language-plaintext highlighter-rouge">[[-1,-1,2],[-1,0,1]]</code></p>
+
+<p><strong>解释</strong>：</p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 </code>。</p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 </code>。</p>
+
+<p><code class="language-plaintext highlighter-rouge">nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0</code> 。</p>
+
+<p>不同的三元组是<code class="language-plaintext highlighter-rouge"> [-1,0,1] </code>和 <code class="language-plaintext highlighter-rouge">[-1,-1,2] </code>。</p>
+
+<p>注意，输出的顺序和三元组的顺序并不重要。</p>
+
+<p>##解题思路</p>
+
+<p>1.首先我想到的是直接暴力求解，但是当给定的数组到达一定的规模的时候，效率无疑会低很多，我认为暴力求解永远都是存在于最后一个解题思路的方法，因此首先排除。</p>
+
+<p>2.那么就得从给定数组本身来进行求解，题目给定的数组是无序的，对于相加求和的题目来说，十分不方便，那么便可直接对给定数组进行重新排序，使用<code class="language-plaintext highlighter-rouge">sort</code>函数即可。</p>
+
+<p>3.排完序之后，就要按顺序查出给定数组的其中三个元素之和为0的情况。这里使用了<code class="language-plaintext highlighter-rouge">双指针</code>的方法。</p>
+
+<p>###双指针</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>双指针方法，是算法题目中较为常见的一种解决方法。其核心思想是在数组中设置两个指针，分别指向数组的头和尾，这样可以同时判定两个元素是否满足题目所要求的条件。在遍历时，设置的终止条件为头指针小于尾指针，每次遍历，依据条件选择让头指针向后移或者尾指针向前移动。 但是，本题所要求的是给定数组中三个元素的和，那么思路就很清晰了：**使用一个单独的指针`k`指向第一个元素，设置双指针法的两个指针分别为`i`、`j`，分别指向`k`后的“头”和“尾”。**意思就是，三元素之和中的固定元素是指针`k`指向的元素，剩下两个元素使用双指针法来遍历。每次双指针法遍历完后，将指针`k`向后移动，重复上述遍历。
+</code></pre></div></div>
+
+<p>##实现细节</p>
+
+<p>1.首先是使用指针<code class="language-plaintext highlighter-rouge">k</code>对数组进行遍历时，要确定一个终止条件为：如果<code class="language-plaintext highlighter-rouge">nums[k]&gt;0</code>那么直接终止判断，返回，因为数组已经有序，指针<code class="language-plaintext highlighter-rouge">k</code>所指向的元素为三个元素中最小的元素，如果它都大于<code class="language-plaintext highlighter-rouge">0</code>，那么比不可能出现三元素之和为<code class="language-plaintext highlighter-rouge">0</code>的情况了。</p>
+
+<p>2.最重要的一点是<strong>去除重复数组</strong>，题目所要求的为输出的三元数组，不能包含元素相同的数组，但是给定数组的时候，里面的很多元素是可以重复的，当我们在进行遍历的时候，就会出现相同的三元组，那么就要去除重复的三元组。
+###去重
+1.首先是在大循环（即用指针<code class="language-plaintext highlighter-rouge">k</code>遍历给定数组时），如果指针<code class="language-plaintext highlighter-rouge">k</code>向后移动指向的元素与原来的元素数值相同，那么直接<code class="language-plaintext highlighter-rouge">continue</code>这次循环，因为得到的三元数组一定是和上一轮得到的三元组相同的结果。</p>
+
+<p>2.其次，是在双指针遍历时进行去重，样例为<code class="language-plaintext highlighter-rouge">-2,0,0,0,2,2,2</code>时，<code class="language-plaintext highlighter-rouge">k</code>指针指向<code class="language-plaintext highlighter-rouge">-2</code>，<code class="language-plaintext highlighter-rouge">i</code>指针指向<code class="language-plaintext highlighter-rouge">0</code>，<code class="language-plaintext highlighter-rouge">j</code>指针指向<code class="language-plaintext highlighter-rouge">2</code>。在进行双指针遍历时，<code class="language-plaintext highlighter-rouge">i</code>指针向后移动一次或者<code class="language-plaintext highlighter-rouge">j</code>指针向前移动一次，都可以组成三元组，但是三元组与上一轮得到的三元组元素完全相同，每次移动<code class="language-plaintext highlighter-rouge">i</code>指针或者<code class="language-plaintext highlighter-rouge">j</code>指针之后都要加上一个<code class="language-plaintext highlighter-rouge">while</code>循环判断：如果<code class="language-plaintext highlighter-rouge">nums[i]==nums[i-1]</code>，那么再令<code class="language-plaintext highlighter-rouge">i++</code>。对于指针<code class="language-plaintext highlighter-rouge">j</code>同理。</p>
+
+<p>#代码实现
+class Solution {
+public:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) {
+    int len=nums.size();//给定数组的长度
+    vector&lt;vector&lt;int&gt;&gt; a;//要求返回的数组
+ 		int k=0;//作为标准的指针
+	if(len&lt;3){
+		return a;
+	}
+    sort(nums.begin(),nums.end());//对给定数组进行从小到大排序
+    for(int k=0;k&lt;len;k++){
+        if(nums[k]&gt;0){
+            return a;
+        }
+        int i=k+1;//头指针
+        int j=len-1;//尾指针
+        if(k&gt;0&amp;&amp;nums[k]==nums[k-1]){//标准指针指向的元素与上一个元素相同则去掉，排除重复
+            continue;
+        }
+        while(i&lt;j){//双指针法，左指针一定要小于右指针
+            if(nums[i]+nums[j]+nums[k]==0){
+            a.push_back({nums[k],nums[i],nums[j]});//若三者相加为0，则加入此三元组
+            }
+            if(nums[i]+nums[j]+nums[k]&lt;0){//若三者相加小于0，那么就让头指针后移 
+            i++;
+            continue;
+            }
+            if(nums[i]+nums[j]+nums[k]&gt;0){//若三者相加大于0，则让尾指针前移
+            j--;
+            continue;
+            }
+            i++;
+            while(nums[i]==nums[i-1]&amp;&amp;i&lt;j){
+            i++;
+            }
+            j--;                                        
+            while(nums[j]==nums[j+1]&amp;&amp;i&lt;j){
+            j--;
+        }
+    }
+    }
+    return a; }
+</code></pre></div></div>
+
+<p>};</p>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2023/07/07/%E5%AF%B9%E4%BA%8E%E5%B7%B2%E6%AF%95%E4%B8%9A%E5%B8%88%E5%85%84Blog%E8%AF%BB%E5%90%8E%E6%9C%89%E6%84%9F/" data-toggle="tooltip" data-placement="top" title="对于已毕业师兄Blog读后有感">
+                        Previous<br>
+                        <span>对于已毕业师兄Blog读后有感</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#iOS" title="iOS" rel="2">
+                                    iOS
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#ReactiveCocoa" title="ReactiveCocoa" rel="1">
+                                    ReactiveCocoa
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#函数式编程" title="函数式编程" rel="1">
+                                    函数式编程
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#开源框架" title="开源框架" rel="1">
+                                    开源框架
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#展望" title="展望" rel="1">
+                                    展望
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#期待" title="期待" rel="1">
+                                    期待
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#纪念" title="纪念" rel="1">
+                                    纪念
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Orange Pi" title="Orange Pi" rel="2">
+                                    Orange Pi
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#嵌入式开发板" title="嵌入式开发板" rel="1">
+                                    嵌入式开发板
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Ubuntu" title="Ubuntu" rel="1">
+                                    Ubuntu
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#感触" title="感触" rel="1">
+                                    感触
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#奋斗方向" title="奋斗方向" rel="1">
+                                    奋斗方向
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#算法" title="算法" rel="1">
+                                    算法
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#双指针" title="双指针" rel="1">
+                                    双指针
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#代码练习" title="代码练习" rel="1">
+                                    代码练习
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#学习记录" title="学习记录" rel="1">
+                                    学习记录
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/iven0322">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Iven‘s Blog 2023
+                    <br>
+                    Theme on <a href="https://github.com/Iven0322/iven0322.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=iven0322&repo=iven0322.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
